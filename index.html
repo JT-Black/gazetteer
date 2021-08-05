@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gazetteer</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <div id="mapid"></div>
+    <div id="select">
+        <div class="select">
+            <select>
+                <option>Select dropdown</option>
+                <option>With options</option>
+            </select>
+        </div>
+    </div>
+    <div id="infobox">
+        <div class="box">
+            <div class="tabs-wrapper">
+                <div class="tabs">
+                    <ul>
+                        <li class="is-active">
+                            <a>Info</a>
+                        </li>
+                        <li>
+                            <a>Wiki</a>
+                        </li>
+                        <li>
+                            <a>News</a>
+                        </li>
+                        <li>
+                            <a>Weather</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="tabs-content">
+                    <ul>
+                        <li class="is-active">
+                            <strong>Name:</strong> USA  <br>
+                            <strong>Population:</strong> 250,123,555 <br>
+                            <strong>Capital:</strong> Washington DC <br>
+                            <strong>Currency:</strong> USD <br>
+                        </li>
+                        <li>
+                            <a href="https://en.wikipedia.org/wiki/United_States">Wikipedia</a>
+                        </li>
+                        <li>
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="https://ichef.bbci.co.uk/news/1024/branded_news/3281/production/_119792921_mediaitem119792920.jpg" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="content">
+                                        <h3>Article Name</h3>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Phasellus nec iaculis mauris.
+                                        <br/><a href="#">Read More...</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="https://ichef.bbci.co.uk/news/1024/branded_news/3281/production/_119792921_mediaitem119792920.jpg" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="content">
+                                        <h3>Article Name</h3>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Phasellus nec iaculis mauris.
+                                        <br/><a href="#">Read More...</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="https://ichef.bbci.co.uk/news/1024/branded_news/3281/production/_119792921_mediaitem119792920.jpg" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="content">
+                                        <h3>Article Name</h3>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Phasellus nec iaculis mauris.
+                                        <br/><a href="#">Read More...</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            
+                            <div class="columns is-mobile is-vcentered is-gapless">
+                                <div class="column has-text-centered">
+                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+                                </div>
+                                <div class="column">
+                                     <div class="is-size-2 has-text-centered has-text-weight-bold">17&deg;</div>
+                                </div>
+                            </div>
+                            <div class="is-size-6 has-text-weight-semibold mb-4 has-text-centered">
+                                Slightly cloudy with no chance of sunburn
+                            </div>
+                            <table class="table is-size-7 has-text-weight-semibold is-fullwidth">
+                                <thead>
+                                    <td>Today</td>
+                                    <td>Day1</td>
+                                    <td>Day2</td>
+                                    <td>Day3</td>
+                                    <td> </td>
+                                </thead>
+                                <tr>
+                                    <td>10&deg;</td>
+                                    <td>12&deg;</td>
+                                    <td>18&deg;</td>
+                                    <td>16&deg;</td>
+                                    <td>High</td>
+                                </tr>
+                                <tr>
+                                    <td>6&deg;</td>
+                                    <td>2&deg;</td>
+                                    <td>8&deg;</td>
+                                    <td>6&deg;</td>
+                                    <td>Low</td>
+                                </tr>
+                                
+                            </table>
+                            
+                            
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    <!-- <div class="modal" data-modal="clickwindow">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Modal title</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success">Save changes</button>
+                <button class="button">Cancel</button>
+            </footer>
+        </div>
+    </div> -->
+    
+    
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <script src="js/vendor/BulmaJS/dist/bulma.js"></script>
+    <script src="js/app.js"></script> 
+</body>
+</html>
