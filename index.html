@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gazetteer</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
@@ -12,30 +13,36 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+    <!-- background map -->
     <div id="backgroundMap"></div>
     <div class="countryselect">
         <div class="select">
             <select>
-                <option>Select dropdown</option>
-                <option>With options</option>
+                <option value="fr">France</option>
+                <option value="de">Germany</option>
+                <option value="mx">Mexico</option>
+                <option value="gb">United Kingdom</option>
+                <option value="us">United States</option>
             </select>
         </div>
     </div>
+
+    <!-- country info box displayed on load-->
     <div class="infobox">
         <div class="box">
             <div class="tabs-wrapper">
                 <div class="tabs">
                     <ul>
-                        <li class="is-active">
+                        <li id="country-info-tab" class="is-active">
                             <a>Info</a>
                         </li>
-                        <li>
+                        <li id="country-wiki-tab">
                             <a>Wiki</a>
                         </li>
-                        <li>
+                        <li id="country-news-tab">
                             <a>News</a>
                         </li>
-                        <li>
+                        <li id="country-weather-tab">
                             <a>Weather</a>
                         </li>
                     </ul>
@@ -43,135 +50,238 @@
                 
                 <div class="tabs-content">
                     <ul>
-                        <li class="is-active">
-                            <strong>Name:</strong> USA  <br>
-                            <strong>Population:</strong> 250,123,555 <br>
-                            <strong>Capital:</strong> Washington DC <br>
-                            <strong>Currency:</strong> USD <br>
+                        <li id="country-info" class="is-active">                            
                         </li>
-                        <li>
-                            <a href="https://en.wikipedia.org/wiki/United_States">Wikipedia</a>
+                        <li id="country-wiki">                            
                         </li>
-                        <li>
-                            <div class="card">
-                                <div class="card-image">
-                                    <figure class="image is-4by3">
-                                        <img src="https://ichef.bbci.co.uk/news/1024/branded_news/3281/production/_119792921_mediaitem119792920.jpg" alt="Placeholder image">
-                                    </figure>
-                                </div>
-                                <div class="card-content">
-                                    <div class="content">
-                                        <h3>Article Name</h3>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Phasellus nec iaculis mauris.
-                                        <br/><a href="#">Read More...</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-image">
-                                    <figure class="image is-4by3">
-                                        <img src="https://ichef.bbci.co.uk/news/1024/branded_news/3281/production/_119792921_mediaitem119792920.jpg" alt="Placeholder image">
-                                    </figure>
-                                </div>
-                                <div class="card-content">
-                                    <div class="content">
-                                        <h3>Article Name</h3>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Phasellus nec iaculis mauris.
-                                        <br/><a href="#">Read More...</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-image">
-                                    <figure class="image is-4by3">
-                                        <img src="https://ichef.bbci.co.uk/news/1024/branded_news/3281/production/_119792921_mediaitem119792920.jpg" alt="Placeholder image">
-                                    </figure>
-                                </div>
-                                <div class="card-content">
-                                    <div class="content">
-                                        <h3>Article Name</h3>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Phasellus nec iaculis mauris.
-                                        <br/><a href="#">Read More...</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <li id="country-news">                            
                         </li>
-                        <li>
-                            
-                            <div class="columns is-mobile is-vcentered is-gapless">
-                                <div class="column has-text-centered">
-                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
-                                </div>
-                                <div class="column">
-                                     <div class="is-size-2 has-text-centered has-text-weight-bold">17&deg;</div>
-                                </div>
-                            </div>
-                            <div class="is-size-6 has-text-weight-semibold mb-4 has-text-centered">
-                                Slightly cloudy with no chance of sunburn
-                            </div>
-                            <table class="table is-size-7 has-text-weight-semibold is-fullwidth">
-                                <thead>
-                                    <td>Today</td>
-                                    <td>Day1</td>
-                                    <td>Day2</td>
-                                    <td>Day3</td>
-                                    <td> </td>
-                                </thead>
-                                <tr>
-                                    <td>10&deg;</td>
-                                    <td>12&deg;</td>
-                                    <td>18&deg;</td>
-                                    <td>16&deg;</td>
-                                    <td>High</td>
-                                </tr>
-                                <tr>
-                                    <td>6&deg;</td>
-                                    <td>2&deg;</td>
-                                    <td>8&deg;</td>
-                                    <td>6&deg;</td>
-                                    <td>Low</td>
-                                </tr>
-                                
-                            </table>
-                            
-                            
-                            
+                        <li id="country-weather"> 
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- modal window displayed on click  -->
     
-    
-    
-    
-    
-    <!-- <div class="modal" data-modal="clickwindow">
+    <div class="modal" data-modal="clickwindow">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Modal title</p>
+                <p id="city-card-title" class="modal-card-title">City Info</p>
                 <button class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
+                <div class="tabs-wrapper">
+                    <div class="tabs">
+                        <ul>
+                            <li id="city-info-tab" class="is-active">
+                                <a>Info</a>
+                            </li>
+                            <li id="city-wiki-tab">
+                                <a>Wiki</a>
+                            </li>
+                            <li id="city-news-tab">
+                                <a>News</a>
+                            </li>
+                            <li id="city-weather-tab">
+                                <a>Weather</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tabs-content">
+                        <ul>
+                            <li id="city-info" class="is-active">
+                        
+                            </li>
+                            <li id="city-wiki">
+                                
+                            </li>
+                            <li id="city-news">
+                                
+                            </li>
+                            <li id="city-weather">
+                                                               
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 
             </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success">Save changes</button>
-                <button class="button">Cancel</button>
-            </footer>
+            
         </div>
-    </div> -->
+    </div>
+
+    <!-- Country HTML Templates -->
+
+
+
+
+    <template id="country-info-template">
+        <strong>Name:</strong>{{ name }}<br>
+        <strong>Population:</strong> {{ population }} <br>
+        <strong>Capital:</strong> {{ capital }} <br>
+        <strong>Currency:</strong> {{ currency }} <br>
+    </template>
+
+    <template id="country-wiki-template">
+        <a href="{{ wiki }}">Wikipedia</a>
+    </template>
+
+    <template id="country-news-template">
+        {{#each this}}
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                    <img src="{{ image }}" alt="{{ title }}">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="content">
+                    <h3>{{ title }}</h3>
+                    {{ content }}
+                    <br/><a href="{{ url }}">Read More...</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </template>
+
+    <template id="country-weather-template">
+        <div class="columns is-mobile is-vcentered is-gapless">
+            <div class="column has-text-centered">
+                <img src="{{ icon }}">
+            </div>
+            <div class="column has-text-centered">
+                 <div class="is-size-4 has-text-centered has-text-weight-bold">{{ big-temp }}</div>
+            </div>
+        </div>
+        <div class="is-size-6 has-text-weight-semibold mb-4 has-text-centered">
+            {{ main }}
+        </div>
+        <div class="is-size-7 has-text-weight-semibold mb-4 has-text-centered">
+            {{ description }}
+        </div>
+        <table class="table is-size-7 has-text-weight-semibold is-fullwidth">
+            <thead>
+                <td>Today</td>
+                <td>Day 1</td>
+                <td>Day 2</td>
+                <td>Day 3</td>
+                <td>+/-</td>
+            </thead>
+            <tr>
+                <td>{{ high0 }}</td>
+                <td>{{ high1 }}</td>
+                <td>{{ high2 }}</td>
+                <td>{{ high3 }}</td>                
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>{{ low0 }}</td>
+                <td>{{ low1 }}</td>
+                <td>{{ low2 }}</td>  
+                <td>{{ low3 }}</td>                
+                <td>Low</td>
+            </tr>  
+        </table>
+    </template>
+
+
+
+
+
+
+
+       <!-- City HTML Templates -->
+
+    <template id="city-card-template">
+        {{ name }}
+    </template>
+
+    <template id="city-info-template">
+        <strong>Name:</strong>{{ name }}<br>
+        <strong>County:</strong> {{ county }} <br>
+        <strong>Population:</strong> {{ population }} <br>
+        <strong>Incorporated:</strong> {{ incorporated }} <br>
+    </template>
+
+    <template id="city-wiki-template">
+        <a href="{{ wiki }}">Wikipedia</a>
+    </template>
+
+    <template id="city-news-template">
+        {{#each this}}
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                    <img src="{{ image }}" alt="{{ title }}">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="content">
+                    <h3>{{ title }}</h3>
+                    {{ content }}
+                    <br/><a href="{{ url }}">Read More...</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </template>
+
+    <template id="city-weather-template">
+        <div class="columns is-mobile is-vcentered is-gapless">
+            <div class="column has-text-centered">
+                <img src="{{ icon }}">
+            </div>
+            <div class="column has-text-centered">
+                 <div class="is-size-4 has-text-centered has-text-weight-bold">{{ big-temp }}</div>
+            </div>
+        </div>
+        <div class="is-size-6 has-text-weight-semibold mb-4 has-text-centered">
+            {{ main }}
+        </div>
+        <div class="is-size-7 has-text-weight-semibold mb-4 has-text-centered">
+            {{ description }}
+        </div>
+        <table class="table is-size-7 has-text-weight-semibold is-fullwidth">
+            <thead>
+                <td>Today</td>
+                <td>Day 1</td>
+                <td>Day 2</td>
+                <td>Day 3</td>
+                <td>+/-</td>
+            </thead>
+            <tr>
+                <td>{{ high0 }}</td>
+                <td>{{ high1 }}</td>
+                <td>{{ high2 }}</td>
+                <td>{{ high3 }}</td>                
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>{{ low0 }}</td>
+                <td>{{ low1 }}</td>
+                <td>{{ low2 }}</td>  
+                <td>{{ low3 }}</td>                
+                <td>Low</td>
+            </tr>  
+        </table>
+    </template>
+
+
+
     
     
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
     <script src="js/vendor/BulmaJS/dist/bulma.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/helpers.js"></script>
     <script src="js/app.js"></script> 
 </body>
 </html>
