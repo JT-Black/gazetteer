@@ -1,13 +1,29 @@
 body{
     position: relative;
-  height: 100vh;
-  width: 100vw;  
+    height: 100vh;
+    width: 100vw;  
+}
+.loading-screen {
+    display:none;
+    position:absolute;
+    height: 100vh;
+    width: 100vw;  
+    z-index: 100;
+    background-color: red;
+    background: rgba(0,0,0,.3);
+}
+body.is-loading .loading-screen{
+    display:block;
+}
+.loading-screen .progress{
+    max-width:200px;
+    margin: 0 auto;
+
 }
 .countryselect{
     position: absolute;
     top: 0%;
     right: 0%;
-    margin: 10px;
     z-index: 10;
 }
 .infobox{
@@ -16,7 +32,6 @@ body{
     
     width: 100%;
     bottom: 0%;
-    padding: 10px;
     z-index: 10;
 }
 @media (min-width: 500px) {
