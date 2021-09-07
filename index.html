@@ -6,16 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gazetteer</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" crossorigin=""
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="resources/vendor/leaflet/leaflet.css">
+    <link rel="stylesheet" href="resources/vendor/bulma.min.css">
+    <link rel="stylesheet" href="resources/css/app.css">
 </head>
 <body>
     <div class="loading-screen">
         <div class="is-flex is-overlay" > 
            <div class="is-align-self-center is-flex-grow-1">
-                <progress class="progress is-large is-info" max="100">60%</progress> 
+                <progress class="progress is-large is-info" max="100"></progress> 
            </div> 
         </div>
     </div>
@@ -99,7 +98,7 @@
                                             {{#if urlToImage}}
                                                 <img src="{{ urlToImage }}" alt="{{ title }}">
                                             {{else}}
-                                                <img src="images/placeholder.jpeg" alt="{{ title }}">
+                                                <img src="resources/images/placeholder.jpeg" alt="{{ title }}">
                                             {{/if}}
                                         </figure>
                                     </div>
@@ -118,7 +117,7 @@
                         </li>
                         <li id="country-weather">
                             {{#if weather}}
-                                <div class="columns is-mobile is-vcentered is-gapless">
+                                <div class="columns is-mobile is-vcentered is-gapless has-background-aqua">
                                     <div class="column has-text-centered">
                                         <img src="{{ weather.icon }}">
                                     </div>
@@ -226,7 +225,7 @@
                                                     {{#if urlToImage}}
                                                         <img src="{{ urlToImage }}" alt="{{ title }}">
                                                     {{else}}
-                                                        <img src="images/placeholder.jpeg" alt="{{ title }}">
+                                                        <img src="resources/images/placeholder.jpeg" alt="{{ title }}">
                                                     {{/if}}
                                                 </figure>
                                             </div>
@@ -245,7 +244,7 @@
                                 </li>
                                 <li id="city-weather">
                                     {{#if weather}}
-                                        <div class="columns is-mobile is-vcentered is-gapless">
+                                        <div class="columns is-mobile is-vcentered is-gapless has-background-aqua">
                                             <div class="column has-text-centered">
                                                 <img src="{{ weather.icon }}">
                                             </div>
@@ -294,12 +293,10 @@
         </div>
     </template>
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
-    <script src="js/vendor/BulmaJS/dist/bulma.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="js/helpers.js"></script>
-    <script src="js/app.js"></script> 
+    <script src="resources/vendor/leaflet/leaflet.js"></script>
+    <script src="resources/vendor/BulmaJS/dist/bulma.js"></script>
+    <script src="resources/vendor/handlebars.min-v4.7.7.js"></script>
+    <script src="resources/js/helpers.js"></script>
+    <script src="resources/js/app.js"></script> 
 </body>
 </html>

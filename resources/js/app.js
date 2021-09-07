@@ -5,9 +5,6 @@ var cityMarkers = L.layerGroup().addTo(map);
 var countryBorder = L.layerGroup().addTo(map);
 var body = document.querySelector("body");
 
-
-
-
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -18,7 +15,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 fetch('routes.php?route=countrylist')
     .then(response => response.json())
     .then((data) => {
-        //console.log(data)
         htmlInjector(data, "#country-list", "#country-list-template")
     });
 
@@ -43,4 +39,4 @@ window.navigator.geolocation.getCurrentPosition((position) => {
             loadCountryInfo(geoCodeData.alpha2, position.coords.latitude, position.coords.longitude);
             paintCityMarkers(cityMarkers, geoCodeData.alpha2);
         });
-});
+}, null, { enableHighAccuracy: false });
