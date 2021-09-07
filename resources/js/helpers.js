@@ -3,7 +3,6 @@ function htmlInjector(data, containerSelector, templateSelector) {
     let innersnippet = document.querySelector(templateSelector).innerHTML;
     let template = Handlebars.compile(innersnippet);
     let content = document.querySelector(containerSelector);
-    console.log(content);
     content.innerHTML = template(data);
 }
 
@@ -48,7 +47,6 @@ function paintCityMarkers(layer, alpha2) {
     fetch(`routes.php?route=getcities&country=${alpha2}`)
         .then(response => response.json())
         .then((response) => {
-            console.log(response);
             response.forEach((city) => {
                 let marker = L.marker([city.lat, city.lng]);
                 marker.on("click", () => {

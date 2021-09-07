@@ -15,7 +15,6 @@ switch ($route) {
                 "lon" => $_GET["lng"]
             ]);
         $geoJson = $response->json();
-        //var_dump($geoJson[0]["country"]);
         $alpha2 = [
             "alpha2" => $geoJson[0]["country"],
         ];
@@ -26,10 +25,8 @@ switch ($route) {
     case 'countrylist': 
         $response = Zttp::get("https://restcountries.eu/rest/v2/all");
         $countries = $response->json();
-        //var_dump($countries[0]["name"]);
         $countryList = [];
         foreach ($countries as $country) {
-            //var_dump($country["alpha2Code"]);
             $countryList[] = [
                 "name" => $country["name"],
                 "alpha2" => $country["alpha2Code"],
@@ -93,148 +90,3 @@ switch ($route) {
 
 
 }
-
-//              *** old city routes ***
-//     case 'cityinfo':
-//         $response = Zttp::withHeaders(["X-Api-Key" => "Wxvgi0iEGtOFcmOkYBGAFg==CQaXOV3SK9BZ4Vql"])
-//             ->get("https://api.api-ninjas.com/v1/city", [
-//                 "name" => $_GET["city"],
-//             ]);
-//         $infoJson = $response->json();
-//         //var_dump($cityData[0]);
-//         $cityInfo = [
-//             "name" => $infoJson[0]["name"],
-//             "population" => $infoJson[0]["population"] * 1000,
-//             "latitude" => $infoJson[0]["latitude"],
-//             "longitude" => $infoJson[0]["longitude"],
-//         ];
-//         echo json_encode($infoJson,JSON_PRETTY_PRINT);
-//         break;
-
-//     case 'citywiki':
-//         $response = Zttp::withHeaders(["X-Api-Key" => "apikey"])
-//             ->get("https://wikipedia API", [
-//                 "name" => $_GET["city"],
-//             ]);
-//         $wikiJson = $response->json();
-//         //var_dump($wikiJson);
-//         $cityWiki = [
-//             "wiki" => "https://en.wikipedia.org/wiki/Hatfield,_Hertfordshire",
-//         ];
-//         echo json_encode($cityWiki,JSON_PRETTY_PRINT);
-//         break;
-
-//     case 'citynews':
-//         $response = Zttp::withHeaders(["X-Api-Key" => "60221968afc3471cb412fb630372774c" ])->get("https://newsapi.org/v2/top-headlines", [
-//             "city" => $_GET["city"],
-//             "pageSize" => 5,
-//         ]);
-//         $newsJson = $response->json();
-//         //var_dump($newsJson);
-//         $cityNews = [];
-//         foreach ($newsJson["articles"] as $story) {
-//             //var_dump($story);
-//             $cityNews[] = [
-//                 "title" => $story["title"],
-//                 "summary" => $story["description"],
-//                 "url" => $story["url"],
-//                 "urlToImage" => $story["urlToImage"],
-//             ];
-//         }
-//         echo json_encode($cityNews,JSON_PRETTY_PRINT);
-//         break;
-
-//     case 'cityweather':
-
-
-
-//         $cityWeather = [
-            
-//         ];
-//         echo json_encode($cityWeather,JSON_PRETTY_PRINT);
-//         break;
-//     default:
-//         throw new Exception('Route not found');
-//         break;
-// }
-
-    //              *** old country routes ***
-    // case 'countryinfo':
-    //     $response = Zttp::withHeaders(["X-Api-Key" => "Wxvgi0iEGtOFcmOkYBGAFg==CQaXOV3SK9BZ4Vql"])
-    //         ->get("https://api.api-ninjas.com/v1/country", [
-    //             "name" => $_GET["country"],
-    //         ]);
-    //     $infoJson = $response->json();
-    //     //var_dump($infoJson);
-    //     // population is * 1000 because api returns population data an order of magnitude lower than it is.
-    //     $countryInfo = [
-    //         "name" => $infoJson[0]["name"],
-    //         "population" => $infoJson[0]["population"] * 1000,
-    //         "capital" => $infoJson[0]["capital"],
-    //         "currency" => $infoJson[0]["currency"]["code"],
-    //     ];
-    //     echo json_encode($countryInfo,JSON_PRETTY_PRINT);
-    //     break;
-
-    // case 'countrywiki':
-    //     $response = Zttp::withHeaders(["X-Api-Key" => "Wxvgi0iEGtOFcmOkYBGAFg==CQaXOV3SK9BZ4Vql"])
-    //         ->get("https://api.api-ninjas.com/v1/country", [
-    //             "name" => $_GET["country"],
-    //         ]);
-    //     $wikiJson = $response->json();
-    //     //var_dump($wikiJson);
-    //     $countryWiki = [
-    //         "wiki" => "https://en.wikipedia.org/wiki/United_States",
-    //     ];
-    //     echo json_encode($countryWiki,JSON_PRETTY_PRINT);
-    //     break;
-
-    // case 'countrynews':
-    //     $response = Zttp::withHeaders(["X-Api-Key" => "60221968afc3471cb412fb630372774c" ])->get("https://newsapi.org/v2/top-headlines", [
-    //         "country" => $_GET["country"],
-    //         "pageSize" => 5,
-    //     ]);
-    //     $newsJson = $response->json();
-    //     //var_dump($newsJson);
-    //     $countryNews = [];
-    //     foreach ($newsJson["articles"] as $story) {
-    //         //var_dump($story);
-    //         $countryNews[] = [
-    //             "title" => $story["title"],
-    //             "summary" => $story["description"],
-    //             "url" => $story["url"],
-    //             "urlToImage" => $story["urlToImage"],
-    //         ];
-    //     }
-    //     echo json_encode($countryNews,JSON_PRETTY_PRINT);
-    //     break;
-
-    // case 'countryweather':
-    //     $response = Zttp::get("https://api.openweathermap.org/data/2.5/onecall", [
-    //         "appid" => "05d1bcce91d52882b453241db1f9e94b",
-    //         "exclude" =>"minutely,hourly,alerts",
-    //         "lat" => $_GET["lat"],
-    //         "lon" => $_GET["lng"],
-    //         "units" => "metric",
-    //     ]);
-    //     $weatherJson= $response->json();
-    //     //var_dump($weatherJson["current"]["weather"][0]["description"]);
-    //     $countryWeather = [
-    //         "main" => $weatherJson["current"]["weather"][0]["main"],
-    //         "description" => $weatherJson["current"]["weather"][0]["description"],
-    //         "icon" => "https://openweathermap.org/img/wn/{$weatherJson['current']['weather'][0]['icon']}@2x.png",
-    //         "temp" => $weatherJson["current"]["temp"],
-    //     ];
-    //     echo json_encode($countryWeather,JSON_PRETTY_PRINT);
-    //     break;
-          
-        // $countryForecast = [
-        //     "high0" => "17",
-        //     "high1" => "18",
-        //     "high2" => "15",
-        //     "high3" => "21",
-        //     "low0" => "10", // $weatherJson["daily"][0]["temp"]["min"]
-        //     "low1" => "8",
-        //     "low2" => "10",
-        //     "low3" => "12",
-        // ];

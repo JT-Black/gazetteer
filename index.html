@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gazetteer</title>
+    <title>JT Black's Gazetteer</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="resources/vendor/leaflet/leaflet.css">
     <link rel="stylesheet" href="resources/vendor/bulma.min.css">
@@ -125,12 +125,12 @@
                                         <div class="is-size-4 has-text-centered has-text-weight-bold">{{ weather.temp }}&deg;</div>
                                     </div>
                                 </div>
-                                <div class="is-size-6 has-text-weight-semibold mb-4 has-text-centered">
-                                    {{ weather.main }}
+                                <div class="is-size-7 has-text-weight-bold mb-4 has-text-centered">
+                                    {{ weather.main }} : {{ weather.description }}
                                 </div>
-                                <div class="is-size-7 has-text-weight-semibold mb-4 has-text-centered">
+                                <!-- <div class="is-size-7 has-text-weight-semibold mb-4 has-text-centered">
                                     {{ weather.description }}
-                                </div>
+                                </div> -->
                                 <table class="table is-size-7 has-text-weight-semibold is-fullwidth">
                                     <thead>
                                         <td>Today</td>
