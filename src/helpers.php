@@ -1,7 +1,7 @@
-<?php 
+<?php
 use Zttp\Zttp;
 
-/**             *** Geocode and Get City Location ***
+/**
  * geocodes and Returns an array cointaining the latitude and longitude of a given city.
  * @param string $country
  * @param string $name
@@ -14,18 +14,18 @@ function getCityLocation($country, $name) {
         "country" => $country,
     ]);
     $locationJson = $response->json();
-    
+
     return [
         "lat" => $locationJson[0]["latitude"],
         "lng" => $locationJson[0]["longitude"],
     ];
 }
 
-   /**           *** Get Country Info ***
-    * Returns an array containing information about a given country.
-    * @param [type] $country
-    * @return array
-    */
+/**
+* Returns an array containing information about a given country.
+* @param [type] $country
+* @return array
+*/
 function getCountryInfo($country){
     $response = Zttp::withHeaders(["X-Api-Key" => "Wxvgi0iEGtOFcmOkYBGAFg==CQaXOV3SK9BZ4Vql"])
     ->get("https://api.api-ninjas.com/v1/country", [
@@ -36,7 +36,7 @@ function getCountryInfo($country){
     if (empty($infoJson)) {
         return [];
     }
-    
+
     return [
         "name" => $infoJson[0]["name"],
         "population" => $infoJson[0]["population"] * 1000,
@@ -46,7 +46,7 @@ function getCountryInfo($country){
     ];
 }
 
-/**             *** Get Country Wiki ***
+/**
  * Returns wikipedia articles about a given country
  *
  * @param string $country
@@ -70,7 +70,7 @@ function getCountryWiki(string $country) {
     return $wiki;
 }
 
-/**             *** Get Country News ***
+/**
  * Returns a collection of recent news stories about a given country.
  *
  * @param string $country
@@ -94,11 +94,11 @@ function getCountryNews($country) {
     return $news;
 }
 
-/**         *** Get Country Weather ***
+/**
  * Returns an array containing the weather and daily forecast for a given country's capital city.
  * @param float $lat
  * @param float $lng
- * @return array 
+ * @return array
  */
 function getCountryWeather($lat, $lng) {
     $response = Zttp::get("https://api.openweathermap.org/data/2.5/onecall", [
@@ -115,7 +115,7 @@ function getCountryWeather($lat, $lng) {
     }
 
     $forecast = [];
-    
+
     foreach ($weatherJson["daily"] as $day){
         $forecast[] = [
             "low" => $day["temp"]["min"],
@@ -133,7 +133,7 @@ function getCountryWeather($lat, $lng) {
     ];
 }
 
-/**                                                                                             *** Get Alpha-3 ***
+/**
  * Converts an ISO alpha-2 code to an ISO alpha-3 code.
  *
  * @param string $alpha2 alpha-2 country code
@@ -152,7 +152,7 @@ function getAlpha3(string $alpha2) {
     return null;
 }
 
-/**                                                                                             *** Get Country Name ***
+/**
  * Converts an ISO alpha-2 code to a country name.
  *
  * @param string $alpha2 alpha-2 country code
@@ -172,8 +172,8 @@ function getCountryName(string $alpha2) {
 }
 
 
-/**             *** Get GeoJson ***
- * Returns a geojson feature data structure from an ISO alpha-3 country code. 
+/**
+ * Returns a geojson feature data structure from an ISO alpha-3 country code.
  *
  * @param string $alpha3
  * @return null|string
@@ -191,7 +191,7 @@ function getGeoJson(string $alpha3) {
     return null;
 }
 
-/**             *** Get Cities ***
+/**
  * Returns an array of the 10 largest cities in a given country.
  * @param string $country
  * @return array $cities
@@ -218,7 +218,7 @@ function getCities(string $country){
     return $cities;
 }
 
-/**             *** Get City Info ***
+/**
  * Returns an array containing information about a given city
  * @param string $country
  * @param string $city
@@ -245,7 +245,7 @@ function getCityInfo(string $country, string $name){
     ];
     return $city;
 }
-/**             *** Get City News ***
+/**
  * Returns a collection of recent news stories about a given city.
  *
  * @param string $country
@@ -269,7 +269,7 @@ function getCityNews(string $country, string $name) {
     return $news;
 }
 
-/**             *** Get City Wiki ***
+/**
  * Returns a wikipedia article about subjects close to a given location
  *
  * @param string $country
@@ -297,11 +297,11 @@ function getCityWiki(string $country, string $name) {
     return $wiki;
 }
 
-/**         *** Get City Weather ***
+/**
  * Returns an array containing the weather and daily forecast for a given country's capital city.
  * @param float $lat
  * @param float $lng
- * @return array 
+ * @return array
  */
 function getCityWeather(string $country, string $name) {
     $location = getCityLocation($country, $name);
@@ -320,7 +320,7 @@ function getCityWeather(string $country, string $name) {
     }
 
     $forecast = [];
-    
+
     foreach ($weatherJson["daily"] as $day){
         $forecast[] = [
             "low" => $day["temp"]["min"],
