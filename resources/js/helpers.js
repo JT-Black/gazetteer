@@ -50,19 +50,21 @@ function paintCityMarkers(layer, alpha2) {
             response.forEach((city) => {
                 let marker = L.marker([city.lat, city.lng]);
                 marker.on("click", () => {
-                    console.log(city);
+                    body.classList.add("is-loading");
 
                     fetch(`routes.php?route=getcityinfo&name=${city.name}&country=${city.country}`)
                         .then(response => response.json())
                         .then((data) => {
+                            body.classList.remove("is-loading");
                             htmlInjector(data, "#city-modal-container", "#city-modal-template");
                             Bulma.parseDocument();
                             let citymodal = Bulma('#city-modal').modal();
                             citymodal.open();
                         });
+
                 });
+
                 layer.addLayer(marker);
             });
-        })
-
+        });
 }

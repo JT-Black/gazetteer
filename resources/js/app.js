@@ -11,7 +11,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // fetch country list
-
 fetch('routes.php?route=countrylist')
     .then(response => response.json())
     .then((data) => {
@@ -19,20 +18,13 @@ fetch('routes.php?route=countrylist')
     });
 
 // load country info from selected country
-
 document.querySelector("#country-list").addEventListener("change", (event) => {
-    
     loadCountryInfo(event.target.value);
     paintCityMarkers(cityMarkers, event.target.value);
-
 });
+
 // geocode location
-
 window.navigator.geolocation.getCurrentPosition((position) => {
-
-    /* 
-                                                                        geocoding
-    */
     fetch(`routes.php?route=geocode&lat=${position.coords.latitude}&lng=${position.coords.longitude}`)
         .then(response => response.json())
         .then((geoCodeData) => {

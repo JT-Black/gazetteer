@@ -1,46 +1,54 @@
-body{
+body {
     position: relative;
     height: 100vh;
-    width: 100vw;  
+    width: 100vw;
 }
+
 .loading-screen {
     display:none;
     position:absolute;
     height: 100vh;
-    width: 100vw;  
+    width: 100vw;
     z-index: 100;
     background: rgba(0,0,0,.3);
 }
-body.is-loading .loading-screen{
+
+body.is-loading .loading-screen {
     display:block
 }
-.loading-screen .progress{
+
+.loading-screen .progress {
     max-width:200px;
     margin: 0 auto;
 
 }
-.countryselect{
+
+.countryselect {
     position: absolute;
     top: 0%;
     right: 0%;
     z-index: 10;
 }
-.infobox{
-    
+
+.infobox {
     position: absolute;
-    
     width: 100%;
     bottom: 0%;
     z-index: 10;
 }
-@media (min-width: 500px) {
-    #infobox {
-      width: 50%;
-      height: 33%;
-    }
-  }
 
-.clickbox{
+@media (min-width: 700px) {
+    .infobox {
+        max-width: 400px;
+    }
+
+    .tabs-content {
+        height: 50vh;
+        overflow-y: scroll;
+    }
+}
+
+.clickbox {
     position: absolute;
     top: 10%;
     bottom:30%;
@@ -48,9 +56,9 @@ body.is-loading .loading-screen{
     z-index: 10;
 }
 
-#backgroundMap { 
-    width:100%;  
-    height:100%; 
+#backgroundMap {
+    width:100%;
+    height:100%;
     z-index: 1;
 }
 

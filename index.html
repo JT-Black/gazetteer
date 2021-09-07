@@ -37,8 +37,9 @@
 
     <!-- country list template-->
     <template id="country-list-template">
+        <option>select country...</option>
         {{#each this}}
-        <option value="{{alpha2}}">{{ name }}</option>
+            <option value="{{alpha2}}">{{ name }}</option>
         {{/each}}
     </template>
 
@@ -252,11 +253,8 @@
                                                 <div class="is-size-4 has-text-centered has-text-weight-bold">{{ weather.temp }}&deg;</div>
                                             </div>
                                         </div>
-                                        <div class="is-size-6 has-text-weight-semibold mb-4 has-text-centered">
-                                            {{ weather.main }}
-                                        </div>
-                                        <div class="is-size-7 has-text-weight-semibold mb-4 has-text-centered">
-                                            {{ weather.description }}
+                                        <div class="is-size-7 has-text-weight-bold mb-4 has-text-centered">
+                                            {{ weather.main }} : {{ weather.description }}
                                         </div>
                                         <table class="table is-size-7 has-text-weight-semibold is-fullwidth">
                                             <thead>
