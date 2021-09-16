@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/src/helpers.php';
+
 use Zttp\Zttp;
 
 $route = $_GET["route"] ?? null;
@@ -21,15 +22,14 @@ switch ($route) {
     break;
 
     case 'countrylist':
-        $response = Zttp::get("https://restcountries.eu/rest/v2/all");
-        $countries = $response->json();
+        $countriesJson = file_get_contents(__DIR__ . '/src/data/isoCountries.json');
+        $countries = json_decode($countriesJson, true);
         $countryList = [];
         foreach ($countries as $country) {
             $countryList[] = [
                 "name" => $country["name"],
-                "alpha2" => $country["alpha2Code"],
-                "alpha3" => $country["alpha3Code"],
-                "flag" => $country["flag"],
+                "alpha2" => $country["alpha-2"],
+                "alpha3" => $country["alpha-3"],
             ];
         }
         echo json_encode($countryList);

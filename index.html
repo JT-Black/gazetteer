@@ -7,10 +7,15 @@
     <title>JT Black's Gazetteer</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="resources/vendor/leaflet/leaflet.css">
+    <link rel="stylesheet" href="resources/vendor/leaflet/leaflet.extra-markers.min.css">
     <link rel="stylesheet" href="resources/vendor/bulma.min.css">
     <link rel="stylesheet" href="resources/css/app.css">
 </head>
 <body>
+    <div id="preloader">
+
+    </div>
+
     <div class="loading-screen">
         <div class="is-flex is-overlay" >
            <div class="is-align-self-center is-flex-grow-1">
@@ -29,8 +34,11 @@
         </div>
     </div>
 
-    <!-- country info box -->
-    <div id="country-info-container" class="infobox p-3"></div>
+    <!-- country name window -->
+    <div id="country-namebox-container" class="infobox p-3"></div>
+
+    <!-- country modal window -->
+    <div id="country-modal-container" class="infobox p-3"></div>
 
     <!-- city modal window  -->
     <div id="city-modal-container"></div>
@@ -43,122 +51,150 @@
         {{/each}}
     </template>
 
-    <!-- Country Info Box Template -->
-    <template id="country-info-template">
-        <div class="box">
-            <div class="tabs-wrapper">
-                <div class="tabs">
-                    <ul>
-                        <li id="country-info-tab" class="is-active">
-                            <a>Info</a>
-                        </li>
-                        <li id="country-wiki-tab">
-                            <a>GeoFacts</a>
-                        </li>
-                        <li id="country-news-tab">
-                            <a>News</a>
-                        </li>
-                        <li id="country-weather-tab">
-                            <a>Weather</a>
-                        </li>
-                    </ul>
+    <!-- Country Name Box -->
+     <template id="country-namebox-template">
+        <div id="country-namebox" class="box">
+            <div class="field">
+                <div class="clicky-icon has-text-centered">
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                          </svg>
+                      </span>
                 </div>
-                <div class="tabs-content">
-                    <ul>
-                        <li id="country-info" class="is-active">
-                            {{#if info}}
-                                <strong>Name:</strong> {{ info.name }} <br>
-                                <strong>Population:</strong> {{ info.population }} <br>
-                                <strong>Capital:</strong> {{ info.capital }} <br>
-                                <strong>Currency:</strong> {{ info.currency }} <br>
-                            {{else}}
-                                <p class="empty">Sorry! No country info available.</p>
-                            {{/if}}
+                <div class="title has-text-centered">{{info.name}}</div>
+            </div>
+        </div>
+    </template>
 
-                        </li>
-                        <li id="country-wiki">
-                            {{#each wiki}}
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="content">
-                                        <h3>{{ title }}</h3>
-                                        {{ summary }}
-                                        <br/><a href="https://{{ url }}">Read More...</a>
-                                    </div>
-                                </div>
-                            </div>
-                            {{else}}
-                            <p class="empty">Sorry! No wiki entry available.</p>
-                            {{/each}}
-                        </li>
-                        <li id="country-news">
-                            {{#each news}}
-                                <div class="card">
-                                    <div class="card-image">
-                                        <figure class="image">
-                                            {{#if urlToImage}}
-                                                <img src="{{ urlToImage }}" alt="{{ title }}">
-                                            {{else}}
-                                                <img src="resources/images/placeholder.jpeg" alt="{{ title }}">
-                                            {{/if}}
-                                        </figure>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="content">
-                                            <h3>{{ title }}</h3>
-                                            {{ summary }}
-                                            <br/><a href="{{ url }}">Read More...</a>
+    <!-- *** Country Modal Box Template Using Modal Divs***  -->
+
+
+    <template id="country-modal-template">
+        <div id="country-modal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card p-3">
+                <header class="modal-card-head">
+                    <p id="country-card-title" class="modal-card-title">{{info.name}}</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="tabs-wrapper">
+                        <div class="tabs">
+                            <ul>
+                                <li id="country-info-tab" class="is-active">
+                                    <a>Info</a>
+                                </li>
+                                <li id="country-wiki-tab">
+                                    <a>Facts</a>
+                                </li>
+                                <li id="country-news-tab">
+                                    <a>News</a>
+                                </li>
+                                <li id="country-weather-tab">
+                                    <a>Weather</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tabs-content">
+                            <ul>
+                                <li id="country-info" class="is-active">
+                                    {{#if info}}
+                                        <strong>Name:</strong> {{ info.name }} <br>
+                                        <strong>Population:</strong> {{ info.population }} <br>
+                                        <strong>Capital:</strong> {{ info.capital }} <br>
+                                        <strong>Currency:</strong> {{ info.currency }} <br>
+                                    {{else}}
+                                        <p class="empty">Sorry! No country info available.</p>
+                                    {{/if}}
+
+                                </li>
+                                <li id="country-wiki">
+                                    {{#each wiki}}
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="content">
+                                                <h3>{{ title }}</h3>
+                                                {{ summary }}
+                                                <br/><a href="https://{{ url }}">Read More...</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            {{else}}
-                                <p class="empty">Sorry! No news available.</p>
-                            {{/each}}
+                                    {{else}}
+                                    <p class="empty">Sorry! No wiki entry available.</p>
+                                    {{/each}}
+                                </li>
+                                <li id="country-news">
+                                    {{#each news}}
+                                        <div class="card">
+                                            <div class="card-image">
+                                                <figure class="image">
+                                                    {{#if urlToImage}}
+                                                        <img src="{{ urlToImage }}" alt="{{ title }}">
+                                                    {{else}}
+                                                        <img src="resources/images/placeholder.jpeg" alt="{{ title }}">
+                                                    {{/if}}
+                                                </figure>
+                                            </div>
+                                            <div class="card-content">
+                                                <div class="content">
+                                                    <h3>{{ title }}</h3>
+                                                    {{ summary }}
+                                                    <br/><a href="{{ url }}">Read More...</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {{else}}
+                                        <p class="empty">Sorry! No news available.</p>
+                                    {{/each}}
 
-                        </li>
-                        <li id="country-weather">
-                            {{#if weather}}
-                                <div class="columns is-mobile is-vcentered is-gapless has-background-aqua">
-                                    <div class="column has-text-centered">
-                                        <img src="{{ weather.icon }}">
-                                    </div>
-                                    <div class="column has-text-centered">
-                                        <div class="is-size-4 has-text-centered has-text-weight-bold">{{ weather.temp }}&deg;</div>
-                                    </div>
-                                </div>
-                                <div class="is-size-7 has-text-weight-bold mb-4 has-text-centered">
-                                    {{ weather.main }} : {{ weather.description }}
-                                </div>
-                               
-                                <table class="table is-size-7 has-text-weight-semibold is-fullwidth">
-                                    <thead>
-                                        <td>Today</td>
-                                        <td>{{ weather.forecast.1.day }}</td>
-                                        <td>{{ weather.forecast.2.day }}</td>
-                                        <td>{{ weather.forecast.3.day }}</td>
-                                        <td>+/-</td>
-                                    </thead>
-                                    <tr>
-                                        <td>{{ weather.forecast.0.high }}&deg;</td>
-                                        <td>{{ weather.forecast.1.high }}&deg;</td>
-                                        <td>{{ weather.forecast.2.high }}&deg;</td>
-                                        <td>{{ weather.forecast.3.high }}&deg;</td>
-                                        <td>High</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ weather.forecast.0.low }}&deg;</td>
-                                        <td>{{ weather.forecast.1.low }}&deg;</td>
-                                        <td>{{ weather.forecast.2.low }}&deg;</td>
-                                        <td>{{ weather.forecast.3.low }}&deg;</td>
-                                        <td>Low</td>
-                                    </tr>
-                                </table>
-                            {{else}}
-                                <p class="empty">Sorry! No weather data available.</p>
-                            {{/if}}
-                        </li>
-                    </ul>
-                </div>
+                                </li>
+                                <li id="country-weather">
+                                    {{#if weather}}
+                                        <div class="columns is-mobile is-vcentered is-gapless has-background-aqua">
+                                            <div class="column has-text-centered">
+                                                <img src="{{ weather.icon }}">
+                                            </div>
+                                            <div class="column has-text-centered">
+                                                <div class="is-size-4 has-text-centered has-text-weight-bold">{{ weather.temp }}&deg;</div>
+                                            </div>
+                                        </div>
+                                        <div class="is-size-7 has-text-weight-bold mb-4 has-text-centered">
+                                            {{ weather.main }} : {{ weather.description }}
+                                        </div>
+
+                                        <table class="table is-size-7 has-text-weight-semibold is-fullwidth">
+                                            <thead>
+                                                <td>Today</td>
+                                                <td>{{ weather.forecast.1.day }}</td>
+                                                <td>{{ weather.forecast.2.day }}</td>
+                                                <td>{{ weather.forecast.3.day }}</td>
+                                                <td>+/-</td>
+                                            </thead>
+                                            <tr>
+                                                <td>{{ weather.forecast.0.high }}&deg;</td>
+                                                <td>{{ weather.forecast.1.high }}&deg;</td>
+                                                <td>{{ weather.forecast.2.high }}&deg;</td>
+                                                <td>{{ weather.forecast.3.high }}&deg;</td>
+                                                <td>High</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ weather.forecast.0.low }}&deg;</td>
+                                                <td>{{ weather.forecast.1.low }}&deg;</td>
+                                                <td>{{ weather.forecast.2.low }}&deg;</td>
+                                                <td>{{ weather.forecast.3.low }}&deg;</td>
+                                                <td>Low</td>
+                                            </tr>
+                                        </table>
+                                    {{else}}
+                                        <p class="empty">Sorry! No weather data available.</p>
+                                    {{/if}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </section>
             </div>
         </div>
     </template>
@@ -180,7 +216,7 @@
                                     <a>Info</a>
                                 </li>
                                 <li id="city-wiki-tab">
-                                    <a>GeoFacts</a>
+                                    <a>Facts</a>
                                 </li>
                                 <li id="city-news-tab">
                                     <a>News</a>
@@ -289,7 +325,9 @@
         </div>
     </template>
 
+
     <script src="resources/vendor/leaflet/leaflet.js"></script>
+    <script src="resources/vendor/leaflet/leaflet.extra-markers.min.js"></script>
     <script src="resources/vendor/BulmaJS/dist/bulma.js"></script>
     <script src="resources/vendor/handlebars.min-v4.7.7.js"></script>
     <script src="resources/js/helpers.js"></script>

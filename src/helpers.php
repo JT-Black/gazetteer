@@ -39,7 +39,7 @@ function getCountryInfo($country){
 
     return [
         "name" => $infoJson[0]["name"],
-        "population" => $infoJson[0]["population"] * 1000,
+        "population" => number_format($infoJson[0]["population"] * 1000),  // this api returns the population of a given country an order of magnitude lower, hence the *1000.
         "capital" => $infoJson[0]["capital"],
         "currency" => $infoJson[0]["currency"]["code"],
         "alpha2" => $infoJson[0]["iso2"],
@@ -62,9 +62,9 @@ function getCountryWiki(string $country) {
     $wiki = [];
     foreach ($wikiJson["geonames"] as $article) {
         $wiki[] = [
-            "title" => $article["title"],
-            "summary" => $article["summary"],
-            "url" => $article["wikipediaUrl"],
+            "title" => $article["title"] ?? null,
+            "summary" => $article["summary"] ?? null,
+            "url" => $article["wikipediaUrl"] ?? null,
         ];
     }
     return $wiki;
@@ -79,7 +79,7 @@ function getCountryWiki(string $country) {
 function getCountryNews($country) {
     $response = Zttp::withHeaders(["X-Api-Key" => "60221968afc3471cb412fb630372774c" ])->get("https://newsapi.org/v2/top-headlines", [
         "country" => $country,
-        "pageSize" => 5,
+        "pageSize" => 8,
     ]);
     $newsJson = $response->json();
     $news = [];
@@ -118,8 +118,8 @@ function getCountryWeather($lat, $lng) {
 
     foreach ($weatherJson["daily"] as $day){
         $forecast[] = [
-            "low" => $day["temp"]["min"],
-            "high"=> $day["temp"]["max"],
+            "low" => round($day["temp"]["min"]),
+            "high"=> round($day["temp"]["max"]),
             "day" => date("D", $day["dt"]),
         ];
     }
@@ -128,7 +128,7 @@ function getCountryWeather($lat, $lng) {
         "main" => $weatherJson["current"]["weather"][0]["main"],
         "description" => $weatherJson["current"]["weather"][0]["description"],
         "icon" => "https://openweathermap.org/img/wn/{$weatherJson['current']['weather'][0]['icon']}@2x.png",
-        "temp" => $weatherJson["current"]["temp"],
+        "temp" => round($weatherJson["current"]["temp"]),
         "forecast" => $forecast,
     ];
 }
@@ -200,7 +200,7 @@ function getCities(string $country){
     $response = Zttp::withHeaders(["X-Api-Key" => "Wxvgi0iEGtOFcmOkYBGAFg==CQaXOV3SK9BZ4Vql"])
         ->get("https://api.api-ninjas.com/v1/city", [
             "country" => $country,
-            "limit" => 10,
+            "limit" => 12,
         ]);
     $cityJson = $response->json();
         //dd($cityJson);
@@ -238,7 +238,7 @@ function getCityInfo(string $country, string $name){
     $city = [
             "name" => $cityJson[0]["name"],
             "country" => $cityJson[0]["country"],
-            "population" => $cityJson[0]["population"],
+            "population" => number_format($cityJson[0]["population"]),
             "isCapital" => $cityJson[0]["is_capital"],
             "lat" => $cityJson[0]["latitude"],
             "lng" => $cityJson[0]["longitude"],
@@ -254,7 +254,7 @@ function getCityInfo(string $country, string $name){
 function getCityNews(string $country, string $name) {
     $response = Zttp::withHeaders(["X-Api-Key" => "60221968afc3471cb412fb630372774c" ])->get("https://newsapi.org/v2/everything", [
         "q" => "{$name} {$country}",
-        "pageSize" => 8,
+        "pageSize" => 12,
     ]);
     $newsJson = $response->json();
     $news = [];
@@ -282,7 +282,7 @@ function getCityWiki(string $country, string $name) {
         "username" => "jtblack",
         "lat" => $location["lat"],
         "lng" => $location["lng"],
-        "radius" => 2,
+        "radius" => 5,
     ]);
     $wikiJson = $response->json();
 
@@ -322,9 +322,10 @@ function getCityWeather(string $country, string $name) {
     $forecast = [];
 
     foreach ($weatherJson["daily"] as $day){
+
         $forecast[] = [
-            "low" => $day["temp"]["min"],
-            "high"=> $day["temp"]["max"],
+            "low" => round($day["temp"]["min"]),
+            "high"=> round($day["temp"]["max"]),
             "day" => date("D", $day["dt"]),
         ];
     }
@@ -333,7 +334,7 @@ function getCityWeather(string $country, string $name) {
         "main" => $weatherJson["current"]["weather"][0]["main"],
         "description" => $weatherJson["current"]["weather"][0]["description"],
         "icon" => "https://openweathermap.org/img/wn/{$weatherJson['current']['weather'][0]['icon']}@2x.png",
-        "temp" => $weatherJson["current"]["temp"],
+        "temp" => round($weatherJson["current"]["temp"]),
         "forecast" => $forecast,
     ];
 }

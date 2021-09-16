@@ -34,8 +34,12 @@ function loadCountryInfo(alpha2, lat = null, lng = null) {
                 map.fitBounds(bounds);
             }
 
-            htmlInjector(countryInfoData, "#country-info-container", "#country-info-template");
+            htmlInjector(countryInfoData, "#country-modal-container", "#country-modal-template");
+            htmlInjector(countryInfoData, "#country-namebox-container", "#country-namebox-template");
+
             Bulma.parseDocument();
+            let countrymodal = Bulma('#country-modal').modal();
+            countrymodal.open();
         });
 }
 
@@ -48,7 +52,9 @@ function paintCityMarkers(layer, alpha2) {
         .then(response => response.json())
         .then((response) => {
             response.forEach((city) => {
-                let marker = L.marker([city.lat, city.lng]);
+
+
+                let marker = L.marker([city.lat, city.lng], {icon: cityMarker});
                 marker.on("click", () => {
                     body.classList.add("is-loading");
 
@@ -65,6 +71,7 @@ function paintCityMarkers(layer, alpha2) {
                 });
 
                 layer.addLayer(marker);
+
             });
         });
 }

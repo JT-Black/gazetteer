@@ -5,10 +5,31 @@ var cityMarkers = L.layerGroup().addTo(map);
 var countryBorder = L.layerGroup().addTo(map);
 var body = document.querySelector("body");
 
+var cityMarker = L.ExtraMarkers.icon({
+    shape: 'circle',
+    markerColor: 'blue',
+    prefix: 'fa',
+    icon: 'industry',
+    iconColor: 'white',
+    iconRotate: 0,
+    extraClasses: '',
+    number: '',
+    svg: false,
+});
+
+
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+window.addEventListener("DOMContentLoaded", () => {
+    window.setTimeout(() => {
+        document.querySelector("#preloader").remove();
+    }, 1000);
+});
+
 
 // fetch country list
 fetch('routes.php?route=countrylist')
@@ -32,3 +53,8 @@ window.navigator.geolocation.getCurrentPosition((position) => {
             paintCityMarkers(cityMarkers, geoCodeData.alpha2);
         });
 }, null, { enableHighAccuracy: false });
+
+document.querySelector("#country-namebox-container").addEventListener("click",(e) => {
+    let countrymodal = Bulma('#country-modal').modal();
+            countrymodal.open();
+} )
