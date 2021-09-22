@@ -16,8 +16,9 @@ switch ($route) {
         $geoJson = $response->json();
         $alpha2 = [
             "alpha2" => $geoJson[0]["country"],
+            "name" => ucwords(getCountryName($geoJson[0]["country"])),
         ];
-
+        //dd($alpha2);
         echo json_encode($alpha2);
     break;
 
@@ -33,6 +34,21 @@ switch ($route) {
             ];
         }
         echo json_encode($countryList);
+    break;
+
+    // case 'countrylist':
+    //     $countriesJson = file_get_contents(__DIR__ . '/src/data/countryBorders.geo.json');
+    //     $countries = json_decode($countriesJson, true);
+    //     $countryList = [];
+    //     foreach ($countries as $country) {
+    //         $countryList[] = [
+    //             "name" => $country["features"]["properties"]["name"],
+    //             "alpha2" => $country["features"]["properties"]["iso_a2"],
+    //             "alpha3" => $country["features"]["properties"]["iso_a3"],
+    //         ];
+    //     }
+    //     echo json_encode($countryList);
+        //dd($countrylist);
     break;
 
     case 'getcountryinfo':

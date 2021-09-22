@@ -78,6 +78,10 @@ body.is-loading .loading-screen {
     background-color: rgb(153, 217, 249);
 }
 
+.modal-background {
+    opacity: 30%;
+}
+
 #preloader {
     position: fixed;
     top: 0;

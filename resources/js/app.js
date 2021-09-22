@@ -1,6 +1,6 @@
 var map = L.map('backgroundMap', {
     "tap": false
-}).setView([0, 0], 3);
+}).setView([50, 0], 3);
 var cityMarkers = L.layerGroup().addTo(map);
 var countryBorder = L.layerGroup().addTo(map);
 var body = document.querySelector("body");
@@ -17,11 +17,9 @@ var cityMarker = L.ExtraMarkers.icon({
     svg: false,
 });
 
-
-
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    //attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -29,7 +27,6 @@ window.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#preloader").remove();
     }, 1000);
 });
-
 
 // fetch country list
 fetch('routes.php?route=countrylist')
@@ -41,7 +38,7 @@ fetch('routes.php?route=countrylist')
 // load country info from selected country
 document.querySelector("#country-list").addEventListener("change", (event) => {
     loadCountryInfo(event.target.value);
-    paintCityMarkers(cityMarkers, event.target.value);
+    setTimeout(() => {paintCityMarkers(cityMarkers, event.target.value)}, 4000);
 });
 
 // geocode location
@@ -50,7 +47,8 @@ window.navigator.geolocation.getCurrentPosition((position) => {
         .then(response => response.json())
         .then((geoCodeData) => {
             loadCountryInfo(geoCodeData.alpha2, position.coords.latitude, position.coords.longitude);
-            paintCityMarkers(cityMarkers, geoCodeData.alpha2);
+            setTimeout(()=>{paintCityMarkers(cityMarkers, geoCodeData.alpha2)}, 4000);
+            document.querySelector("#current-country").innerHTML = geoCodeData.name;
         });
 }, null, { enableHighAccuracy: false });
 

@@ -22,7 +22,7 @@ function loadCountryInfo(alpha2, lat = null, lng = null) {
         params.append('lng', lng);
     }
 
-    // fetch country geoCodeData
+          // fetch country geoCodeData
     fetch(`routes.php?${params.toString()}`)
         .then(response => response.json())
         .then((countryInfoData) => {
@@ -40,6 +40,7 @@ function loadCountryInfo(alpha2, lat = null, lng = null) {
             Bulma.parseDocument();
             let countrymodal = Bulma('#country-modal').modal();
             countrymodal.open();
+            countrymodal.close();
         });
 }
 

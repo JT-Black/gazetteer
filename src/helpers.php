@@ -43,6 +43,10 @@ function getCountryInfo($country){
         "capital" => $infoJson[0]["capital"],
         "currency" => $infoJson[0]["currency"]["code"],
         "alpha2" => $infoJson[0]["iso2"],
+        "lifeM" => $infoJson[0]["life_expectancy_male"],
+        "lifeF" => $infoJson[0]["life_expectancy_female"],
+        "homicide" => $infoJson[0]["homicide_rate"],
+        "forest" => $infoJson[0]["forested_area"],
     ];
 }
 
@@ -179,11 +183,11 @@ function getCountryName(string $alpha2) {
  * @return null|string
  */
 function getGeoJson(string $alpha3) {
-    $geoJson = file_get_contents(__DIR__ . '/data/countries.geojson');
+    $geoJson = file_get_contents(__DIR__ . '/data/countryBorders.geo.json');
     $geoData = json_decode($geoJson, true);
 
     foreach ($geoData["features"] as $feature) {
-        if (strtolower($alpha3) === strtolower($feature["properties"]["ISO_A3"])) {
+        if (strtolower($alpha3) === strtolower($feature["properties"]["iso_a3"])) {
             return $feature;
         }
     }
