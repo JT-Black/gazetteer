@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JT Black's Gazetteer</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
     <link rel="stylesheet" href="resources/vendor/leaflet/leaflet.css">
     <link rel="stylesheet" href="resources/vendor/leaflet/leaflet.extra-markers.min.css">
     <link rel="stylesheet" href="resources/vendor/bulma.min.css">
@@ -26,6 +27,7 @@
     <!-- background map -->
     <div id="backgroundMap"></div>
 
+    <!-- country select -->
     <div class="countryselect p-3">
         <div class="select">
             <select id="country-list" style="max-width:250px">
@@ -35,17 +37,18 @@
     </div>
 
     <!-- country name window -->
-    <div id="country-namebox-container" class="infobox p-3"></div>
+    <div id="country-namebox-container" class="infobox p-4"></div>
 
     <!-- country modal window -->
-    <div id="country-modal-container" class="infobox p-3"></div>
+    <div id="country-modal-container" class="infobox p-4"></div>
 
     <!-- city modal window  -->
     <div id="city-modal-container"></div>
 
     <!-- country list template-->
     <template id="country-list-template">
-        <option>select country...</option>
+
+        <option id="current-country">select country...</option>
         {{#each this}}
             <option value="{{alpha2}}">{{ name }}</option>
         {{/each}}
@@ -104,6 +107,10 @@
                                         <strong>Population:</strong> {{ info.population }} <br>
                                         <strong>Capital:</strong> {{ info.capital }} <br>
                                         <strong>Currency:</strong> {{ info.currency }} <br>
+                                        <strong>Female Life Expectancy:</strong> {{ info.lifeF }} years <br>
+                                        <strong>Male Life Expectancy:</strong> {{ info.lifeM }} years <br>
+                                        <strong>Homicides per 1000</strong> {{ info.homicide}} <br>
+                                        <strong>Forested Area</strong> {{ info.forest }} &#37; <br>
                                     {{else}}
                                         <p class="empty">Sorry! No country info available.</p>
                                     {{/if}}
