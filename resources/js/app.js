@@ -9,10 +9,10 @@ var cityMarker = L.ExtraMarkers.icon({
     shape: 'circle',
     markerColor: 'blue',
     prefix: 'fa',
-    icon: 'industry',
+    icon: 'fa-arrow-down',
     iconColor: 'white',
     iconRotate: 0,
-    extraClasses: '',
+    extraClasses: 'fa-bounce',
     number: '',
     svg: false,
 });

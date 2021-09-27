@@ -16,8 +16,8 @@ function getCityLocation($country, $name) {
     $locationJson = $response->json();
 
     return [
-        "lat" => $locationJson[0]["latitude"],
-        "lng" => $locationJson[0]["longitude"],
+        "lat" => $locationJson[0]["latitude"] ?? null,
+        "lng" => $locationJson[0]["longitude"]?? null,
     ];
 }
 
@@ -240,12 +240,12 @@ function getCityInfo(string $country, string $name){
         return [];
     }
     $city = [
-            "name" => $cityJson[0]["name"],
-            "country" => $cityJson[0]["country"],
-            "population" => number_format($cityJson[0]["population"]),
-            "isCapital" => $cityJson[0]["is_capital"],
-            "lat" => $cityJson[0]["latitude"],
-            "lng" => $cityJson[0]["longitude"],
+            "name" => $cityJson[0]["name"] ?? null,
+            "country" => $cityJson[0]["country"] ?? null,
+            "population" => number_format($cityJson[0]["population"] ?? null),
+            "isCapital" => $cityJson[0]["is_capital"] ?? null,
+            "lat" => $cityJson[0]["latitude"] ?? null,
+            "lng" => $cityJson[0]["longitude"] ?? null,
     ];
     return $city;
 }

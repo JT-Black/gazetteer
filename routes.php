@@ -18,37 +18,42 @@ switch ($route) {
             "alpha2" => $geoJson[0]["country"],
             "name" => ucwords(getCountryName($geoJson[0]["country"])),
         ];
-        //dd($alpha2);
+
         echo json_encode($alpha2);
     break;
 
-    case 'countrylist':
-        $countriesJson = file_get_contents(__DIR__ . '/src/data/isoCountries.json');
-        $countries = json_decode($countriesJson, true);
-        $countryList = [];
-        foreach ($countries as $country) {
-            $countryList[] = [
-                "name" => $country["name"],
-                "alpha2" => $country["alpha-2"],
-                "alpha3" => $country["alpha-3"],
-            ];
-        }
-        echo json_encode($countryList);
-    break;
-
     // case 'countrylist':
-    //     $countriesJson = file_get_contents(__DIR__ . '/src/data/countryBorders.geo.json');
+    //     $countriesJson = file_get_contents(__DIR__ . '/src/data/isoCountries.json');
     //     $countries = json_decode($countriesJson, true);
     //     $countryList = [];
     //     foreach ($countries as $country) {
     //         $countryList[] = [
-    //             "name" => $country["features"]["properties"]["name"],
-    //             "alpha2" => $country["features"]["properties"]["iso_a2"],
-    //             "alpha3" => $country["features"]["properties"]["iso_a3"],
+    //             "name" => $country["name"],
+    //             "alpha2" => $country["alpha-2"],
+    //             "alpha3" => $country["alpha-3"],
     //         ];
     //     }
     //     echo json_encode($countryList);
-        //dd($countrylist);
+    // break;
+
+    case 'countrylist':
+        $countriesJson = file_get_contents(__DIR__ . '/src/data/countryBorders.geo.json');
+        $countries = json_decode($countriesJson, true);
+        //dd($countries);
+        $countryList = [];
+        foreach ($countries["features"] as $country) {
+            //dd($country);
+            $countryList[] = [
+                "name" => $country["properties"]["name"],
+                "alpha2" => $country["properties"]["iso_a2"],
+                "alpha3" => $country["properties"]["iso_a3"],
+            ];
+        }
+        usort($countryList, function ($item1, $item2) {
+            return $item1['name'] <=> $item2['name'];
+        });
+        echo json_encode($countryList);
+
     break;
 
     case 'getcountryinfo':

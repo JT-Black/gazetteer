@@ -40,10 +40,7 @@ body.is-loading .loading-screen {
     .infobox {
         max-width: 400px;
     }
-    .tabs-content {
-        height: 50vh;
-        overflow-y: scroll;
-    }
+
 }
 
 .clickbox {
@@ -60,10 +57,7 @@ body.is-loading .loading-screen {
     z-index: 1;
 }
 
-.tabs-content {
-    max-height: 250px;
-    overflow-y: scroll;
-}
+
 
 .tabs-content li {
     display: none;

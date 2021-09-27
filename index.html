@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JT Black's Gazetteer</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
     <link rel="stylesheet" href="resources/vendor/leaflet/leaflet.css">
     <link rel="stylesheet" href="resources/vendor/leaflet/leaflet.extra-markers.min.css">
     <link rel="stylesheet" href="resources/vendor/bulma.min.css">
     <link rel="stylesheet" href="resources/css/app.css">
+    <link rel="stylesheet" href="resources/vendor/fontawesome/css/all.min.css">
+
 </head>
 <body>
     <div id="preloader">
@@ -103,14 +104,45 @@
                             <ul>
                                 <li id="country-info" class="is-active">
                                     {{#if info}}
-                                        <strong>Name:</strong> {{ info.name }} <br>
-                                        <strong>Population:</strong> {{ info.population }} <br>
-                                        <strong>Capital:</strong> {{ info.capital }} <br>
-                                        <strong>Currency:</strong> {{ info.currency }} <br>
-                                        <strong>Female Life Expectancy:</strong> {{ info.lifeF }} years <br>
-                                        <strong>Male Life Expectancy:</strong> {{ info.lifeM }} years <br>
-                                        <strong>Homicides per 1000</strong> {{ info.homicide}} <br>
-                                        <strong>Forested Area</strong> {{ info.forest }} &#37; <br>
+                                    <div class=table-container>
+                                    <table class="table is-striped is-fullwidth">
+
+                                        <tr>
+                                            <td><strong>Name:</strong></td>
+                                            <td> {{ info.name }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Population:</strong></td>
+                                            <td> {{ info.population }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Capital:</strong></td>
+                                            <td> {{ info.capital }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Currency:</strong></td>
+                                            <td> {{ info.currency }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Female Life Expectancy:</strong></td>
+                                            <td> {{ info.lifeF }} years </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Male Life Expectancy:</strong></td>
+                                            <td> {{ info.lifeM }} years </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Homicides per 1000</strong></td>
+                                            <td> {{ info.homicide}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Forested Area</strong></td>
+                                            <td> {{ info.forest }} &#37; </td>
+                                        </tr>
+
+                                    </table>
+                                    </div>
+
                                     {{else}}
                                         <p class="empty">Sorry! No country info available.</p>
                                     {{/if}}
@@ -237,8 +269,21 @@
                             <ul>
                                 <li id="city-info" class="is-active">
                                     {{#if info}}
-                                        <strong>Name:</strong> {{ info.name }} <br>
-                                        <strong>Population:</strong> {{ info.population }} <br>
+
+                                    <div class=table-container>
+                                        <table class="table is-striped is-fullwidth">
+
+                                            <tr>
+                                                <td><strong>Name:</strong></td>
+                                                <td> {{ info.name }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Population:</strong></td>
+                                                <td> {{ info.population }} </td>
+                                            </tr>
+
+                                        </table>
+                                        </div>
 
                                     {{else}}
                                         <p class="empty">Sorry! No city info available.</p>
