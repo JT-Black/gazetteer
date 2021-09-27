@@ -12,7 +12,7 @@ var cityMarker = L.ExtraMarkers.icon({
     icon: 'fa-arrow-down',
     iconColor: 'white',
     iconRotate: 0,
-    extraClasses: 'fa-bounce',
+    extraClasses: '',
     number: '',
     svg: false,
 });
